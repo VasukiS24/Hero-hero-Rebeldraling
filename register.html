@@ -291,7 +291,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     return;
   }
 
-  // 1. upload image to Supabase Storage
+  // 🔥 STEP 1 — UPLOAD IMAGE (PUT HERE)
   const fileName = Date.now() + "_" + file.name;
 
   const { error: uploadError } = await db.storage
@@ -299,19 +299,18 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     .upload(fileName, file);
 
   if (uploadError) {
-    alert("Upload failed");
-    console.log(uploadError);
+    alert(uploadError.message);
     return;
   }
 
-  // 2. get public URL
+  // 🔥 STEP 2 — GET IMAGE URL (PUT HERE RIGHT AFTER UPLOAD)
   const { data } = db.storage
-    .from("players")
-    .getPublicUrl(fileName);
+  .from("players")
+  .getPublicUrl(fileName);
 
-  const imageurl = data.publicUrl;
+const imageurl = data.publicUrl;
 
-  // 3. save to database
+  // 🔥 STEP 3 — SAVE TO DATABASE (already correct)
   const { error } = await db.from("players").insert([
     {
       playerName,
