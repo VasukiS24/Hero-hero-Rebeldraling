@@ -199,8 +199,9 @@ const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 async function loadPlayers() {
 
   const { data, error } = await db
-    .from("players")
-    .select("*");
+.from("players")
+.select("*")
+.order("level", { ascending:false });
 
   if (error) {
     console.log(error);
