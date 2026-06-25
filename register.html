@@ -251,29 +251,19 @@ button{
 <h1>FREEFIREXIPL REGISTRATION</h1>
 
 
-<form action=form id="registerForm"></form>" method="POST" enctype="multipart/form-data">
+<form id="registerForm">
 
+  <input type="text" name="playerName" placeholder="Player Name" required>
 
-<input type="text" name="playerName" placeholder="Player Name" required>
+  <input type="text" name="ffid" placeholder="Free Fire ID Name" required>
 
+  <input type="number" name="level" placeholder="Free Fire Level" required>
 
-<input type="text" name="ffid" placeholder="Free Fire ID Name" required>
+  <input type="file" name="screenshot" required>
 
+  <button type="submit">REGISTER</button>
 
-<input type="number" name="level" placeholder="Free Fire Level" required>
-
-
-<input type="file" name="screenshot" required>
-
-
-<button type="submit">
-REGISTER
-</button>
-
-<a href="index.html" class="back-home">
-← BACK TO HOME
-</a>
-
+  <a href="index.html" class="back-home">← BACK TO HOME</a>
 
 </form>
 
@@ -281,9 +271,9 @@ REGISTER
 
 <script>
 const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
-const supabaseKey = "sb_publishable_geXPrZhH9hn6TgRD_ff8Eg_wnIdHXFU";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
 
-const supabase = window.supabase.createClient(
+const db = window.supabase.createClient(
   supabaseUrl,
   supabaseKey
 );
@@ -295,7 +285,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   const ffid = document.querySelector('[name="ffid"]').value;
   const level = document.querySelector('[name="level"]').value;
 
-  const { error } = await supabase
+  const { error } =  await db
     .from("players")
     .insert([
       {
@@ -306,9 +296,9 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     ]);
 
   if(error){
-    alert("Registration failed");
-    console.log(error);
-  } else {
+  alert("Registration failed: " + error.message);
+  console.log(error);
+} else {
     alert("Registration successful!");
     window.location.href = "registered.html";
   }
