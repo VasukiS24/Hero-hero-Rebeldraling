@@ -284,23 +284,48 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
   const playerName = document.querySelector('[name="playerName"]').value;
   const ffid = document.querySelector('[name="ffid"]').value;
   const level = document.querySelector('[name="level"]').value;
+  const file = document.querySelector('[name="screenshot"]').files[0];
 
-  const { error } =  await db
+  if (!file) {
+    alert("Please select image");
+    return;
+  }
+
+  // 1. upload image to Supabase Storage
+  const fileName = Date.now() + "_" + file.name;
+
+  const { error: uploadError } = await db.storage
     .from("players")
-    .insert([
-      {
-        playerName: playerName,
-        ffid: ffid,
-        level: level
-      }
-    ]);
+    .upload(fileName, file);
 
-  if(error){
-  alert("Registration failed: " + error.message);
-  console.log(error);
-} else {
-    alert("Registration successful!");
-    window.location.href = "registered.html";
+  if (uploadError) {
+    alert("Upload failed");
+    console.log(uploadError);
+    return;
+  }
+
+  // 2. get public URL
+  const { data } = db.storage
+    .from("players")
+    .getPublicUrl(fileName);
+
+  const imageurl = data.publicUrl;
+
+  // 3. save to database
+  const { error } = await db.from("players").insert([
+    {
+      playerName,
+      ffid,
+      level,
+      imageurl
+    }
+  ]);
+
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Registered successfully!");
+    window.location.href = "players.html";
   }
 });
 </script>
