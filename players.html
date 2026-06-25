@@ -190,61 +190,46 @@ width:90%;
 
 
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script>
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
 
-fetch("http://localhost:3000/players")
-.then(res => res.json())
-.then(data => {
+const db = supabase.createClient(supabaseUrl, supabaseKey);
 
-let box = document.getElementById("players");
+async function loadPlayers() {
 
-data.forEach(player => {
+  const { data, error } = await db
+    .from("players")
+    .select("*");
 
-box.innerHTML += `
+  if (error) {
+    console.log(error);
+    return;
+  }
 
-<div class="player">
+  let box = document.getElementById("players");
+  box.innerHTML = "";
 
-<h2>${player.playerName}</h2>
+  data.forEach(player => {
+  box.innerHTML += `
+    <div class="player">
+      <h2>${player.playerName}</h2>
+      <p>FF ID : ${player.ffid}</p>
+      <p class="level">LEVEL : ${player.level}</p>
 
-<p>
-FF ID : ${player.ffid}
-</p>
-
-<p class="level">
-LEVEL : ${player.level}
-</p>
-
-<img src="http://localhost:3000/uploads/${player.screenshot}">
-
-<button onclick="deletePlayer('${player._id}')">
-DELETE
-</button>
-
-</div>
-
-`;
-
-});
-
-});
-
-function deletePlayer(id){
-
-fetch("http://localhost:3000/delete/" + id,{
-method:"DELETE"
-})
-
-.then(res=>res.text())
-.then(msg=>{
-alert(msg);
-location.reload();
+      <!-- 👇 ADD IMAGE HERE -->
+      <img src="${player.imageurl}" width="120" style="border-radius:10px; margin-top:10px;">
+    </div>
+  `;
 });
 
 }
 
+loadPlayers();
 </script>
-
-
 
 </body>
 
