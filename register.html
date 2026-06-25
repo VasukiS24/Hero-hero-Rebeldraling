@@ -251,7 +251,7 @@ button{
 <h1>FREEFIREXIPL REGISTRATION</h1>
 
 
-<form action="http://localhost:3000/register" method="POST" enctype="multipart/form-data">
+<form action=form id="registerForm"></form>" method="POST" enctype="multipart/form-data">
 
 
 <input type="text" name="playerName" placeholder="Player Name" required>
@@ -277,6 +277,42 @@ REGISTER
 
 </form>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+const supabaseKey = "sb_publishable_geXPrZhH9hn6TgRD_ff8Eg_wnIdHXFU";
+
+const supabase = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const playerName = document.querySelector('[name="playerName"]').value;
+  const ffid = document.querySelector('[name="ffid"]').value;
+  const level = document.querySelector('[name="level"]').value;
+
+  const { error } = await supabase
+    .from("players")
+    .insert([
+      {
+        playerName: playerName,
+        ffid: ffid,
+        level: level
+      }
+    ]);
+
+  if(error){
+    alert("Registration failed");
+    console.log(error);
+  } else {
+    alert("Registration successful!");
+    window.location.href = "registered.html";
+  }
+});
+</script>
 </body>
 </html>
