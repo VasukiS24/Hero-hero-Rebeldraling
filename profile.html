@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Player Profile</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+background:#050505;
+color:white;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+form{
+
+background:#111;
+padding:30px;
+border:2px solid orange;
+border-radius:20px;
+width:350px;
+
+}
+
+h1{
+
+color:orange;
+text-align:center;
+
+}
+
+input,button{
+
+width:100%;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+border:none;
+
+}
+
+
+input{
+
+background:#222;
+color:white;
+
+}
+
+
+button{
+
+background:orange;
+color:white;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<form id="profileForm">
+
+
+<h1>CREATE PROFILE</h1>
+
+
+<input type="text" id="name" placeholder="Real Name" required>
+
+
+<input type="text" id="ffid" placeholder="Free Fire UID" required>
+
+
+<input type="text" id="phone" placeholder="Phone Number" required>
+
+
+<button type="submit">
+CREATE PROFILE
+</button>
+
+
+</form>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
+
+
+const db = window.supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+
+
+document.getElementById("profileForm")
+.addEventListener("submit", async(e)=>{
+
+
+e.preventDefault();
+
+
+
+const name = document.getElementById("name").value;
+
+const ffid = document.getElementById("ffid").value;
+
+const phone = document.getElementById("phone").value;
+
+
+
+const {error}= await db
+.from("profiles")
+.insert([{
+
+name:name,
+ffid:ffid,
+phone:phone
+
+}]);
+
+
+
+if(error){
+
+alert(error.message);
+
+}
+
+else{
+
+alert("Profile created. Wait for admin approval 🔥");
+
+}
+
+
+
+});
+
+
+
+</script>
+
+
+</body>
+</html>

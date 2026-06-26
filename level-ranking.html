@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>FREEFIREXIPL PLAYERS</title>
+
+<style>
+
+body{
+
+background:#050505;
+
+color:white;
+
+font-family:'Poppins',sans-serif;
+
+text-align:center;
+
+}
+
+
+h1{
+
+color:#ff9800;
+
+font-size:35px;
+
+text-shadow:
+0 0 10px orange,
+0 0 30px orange;
+
+}
+
+
+
+.back-home{
+
+display:inline-block;
+
+margin:20px;
+
+padding:12px 30px;
+
+text-decoration:none;
+
+color:white;
+
+font-weight:bold;
+
+border:2px solid orange;
+
+border-radius:25px;
+
+box-shadow:0 0 15px orange;
+
+}
+
+
+
+.back-home:hover{
+
+background:orange;
+
+color:black;
+
+}
+
+
+
+
+/* TWO SIDE PLAYER BOX */
+
+#players{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:25px;
+}
+
+.player{
+
+width:330px;
+
+padding:20px;
+
+background:#111;
+
+border:2px solid orange;
+
+border-radius:20px;
+
+box-shadow:
+0 0 20px orange;
+
+transition:.3s;
+
+}
+
+
+
+.player img{
+
+width:100%;
+
+height:auto;
+
+object-fit:contain;
+
+border-radius:15px;
+
+border:2px solid orange;
+
+}
+
+
+
+
+
+
+.player:hover{
+
+transform:scale(1.05);
+
+box-shadow:
+
+0 0 40px orange;
+
+}
+
+
+
+
+
+
+
+
+
+.level{
+
+color:#ffb000;
+
+font-size:20px;
+
+font-weight:bold;
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+.player{
+
+width:90%;
+
+}
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+
+<h1>🔥 REGISTERED PLAYERS 🔥</h1>
+
+
+
+<a href="index.html" class="back-home">
+
+← BACK TO HOME
+
+</a>
+
+
+
+
+<div id="players"></div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
+
+const db = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+async function loadPlayers() {
+
+  const { data, error } = await db
+.from("players")
+.select("*")
+.order("level", { ascending:false });
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  let box = document.getElementById("players");
+  box.innerHTML = "";
+
+  data.forEach(player => {
+    box.innerHTML += `
+      <div class="player">
+        <h2>${player.playerName}</h2>
+        <p>FF ID : ${player.ffid}</p>
+        <p class="level">LEVEL : ${player.level}</p>
+
+        <img src="${player.imageurl}" width="120">
+      </div>
+    `;
+  });
+
+}
+
+loadPlayers();
+</script>
+
+
+</body>
+
+</html>

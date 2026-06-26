@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Player Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+</head>
+<style>
+    /* REGISTRATION PAGE */
+
+body{
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top,#ff7a00,#050505 55%);
+    font-family:'Poppins',sans-serif;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    gap:20px;
+    margin:0;
+    padding:0;
+}
+
+
+/* MAIN TITLE */
+
+h1{
+    width:100%;
+    font-family:'Orbitron',sans-serif;
+    color:#ffb000;
+    text-align:center;
+    letter-spacing:3px;
+    text-shadow:
+    0 0 10px #ff7a00,
+    0 0 30px #ff7a00;
+}
+
+
+/* FORM BOX */
+
+form{
+    width:100%;
+    max-width:420px;
+    padding:35px;
+    box-sizing:border-box;
+    background:rgba(0,0,0,0.75);
+    border:2px solid #ff9800;
+    border-radius:20px;
+    box-shadow:
+    0 0 25px #ff9800,
+    inset 0 0 20px #222;
+}
+
+
+/* INPUTS */
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    margin:12px 0;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:10px;
+
+    background:#111;
+
+    color:white;
+
+    font-size:16px;
+
+    border:1px solid #555;
+
+    transition:.3s;
+
+}
+
+
+
+input:focus{
+
+    border-color:#ff9800;
+
+    box-shadow:
+
+    0 0 15px #ff9800;
+
+}
+
+
+
+/* FILE INPUT */
+
+input[type="file"]{
+
+    background:#222;
+
+}
+
+
+
+/* BUTTON */
+
+button{
+
+
+    width:100%;
+
+    padding:15px;
+
+    margin-top:20px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:
+
+    linear-gradient(45deg,#ff4500,#ffb000);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    letter-spacing:2px;
+
+
+    box-shadow:
+
+    0 0 20px #ff9800;
+
+
+    transition:.3s;
+
+}
+
+
+
+button:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:
+
+    0 0 40px #ff9800;
+
+}
+
+
+
+/* MOBILE */
+@media(max-width:500px){
+
+body{
+    min-height:100vh;
+    justify-content:center;
+    padding:0;
+    gap:20px;
+}
+
+h1{
+    font-size:24px;
+    letter-spacing:2px;
+    margin-bottom:5px;
+}
+
+form{
+   width:100%;
+    max-width:none;   /* THIS is important */
+    min-height:100vh; /* covers full screen height */
+    padding:30px 20px;
+    border-radius:0;
+    border:none;
+}
+
+input{
+    width:100%;
+    padding:16px;
+    font-size:16px;
+    margin:12px 0;
+}
+
+button{
+    width:100%;
+    padding:16px;
+    font-size:17px;
+}
+
+.back-home{
+    padding:14px;
+    font-size:15px;
+}
+
+}
+
+
+
+.back-home{
+
+    display:block;
+
+    text-align:center;
+
+    margin-top:20px;
+
+    padding:12px;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+    color:white;
+
+    border:2px solid #ff9800;
+
+    font-weight:bold;
+
+    letter-spacing:1px;
+
+    transition:.3s;
+
+}
+
+
+.back-home:hover{
+
+    background:#ff9800;
+
+    box-shadow:
+    0 0 25px #ff9800;
+
+    transform:scale(1.05);
+
+}
+
+</style>
+<body>
+
+
+<h1>FREEFIREXIPL REGISTRATION</h1>
+
+
+<form id="registerForm">
+
+  <input type="text" name="playerName" placeholder="Player Name" required>
+
+  <input type="text" name="ffid" placeholder="Free Fire ID Number" required>
+
+  <input type="number" name="level" placeholder="Free Fire Level" required>
+
+  <input type="file" name="screenshot" required>
+
+  <button type="submit">REGISTER</button>
+
+  <a href="index.html" class="back-home">← BACK TO HOME</a>
+
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
+
+const db = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const playerName = document.querySelector('[name="playerName"]').value;
+  const ffid = document.querySelector('[name="ffid"]').value;
+  const level = document.querySelector('[name="level"]').value;
+  const file = document.querySelector('[name="screenshot"]').files[0];
+
+  if (!file) {
+    alert("Please select image");
+    return;
+  }
+
+  // 🔥 STEP 1 — UPLOAD IMAGE (PUT HERE)
+  const fileName = Date.now() + "_" + file.name;
+
+  const { error: uploadError } = await db.storage
+    .from("players")
+    .upload(fileName, file);
+
+  if (uploadError) {
+    alert(uploadError.message);
+    return;
+  }
+
+  // 🔥 STEP 2 — GET IMAGE URL (PUT HERE RIGHT AFTER UPLOAD)
+  const { data } = db.storage
+  .from("players")
+  .getPublicUrl(fileName);
+
+const imageurl = data.publicUrl;
+
+  // 🔥 STEP 3 — SAVE TO DATABASE (already correct)
+  const { error } = await db.from("players").insert([
+    {
+      playerName,
+      ffid,
+      level,
+      imageurl,
+      status:"pending"
+    }
+]);
+  if (error) {
+    alert(error.message);
+  } else {
+    alert("Registration completed Wait for admin approval check registered page 🔥");
+    window.location.href = "index.html";
+  }
+});
+</script>
+</body>
+</html>

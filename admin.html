@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Admin Approval</title>
+
+<style>
+
+body{
+background:#050505;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+h1{
+color:orange;
+}
+
+.card{
+
+background:#111;
+border:2px solid orange;
+border-radius:15px;
+padding:20px;
+margin:20px auto;
+width:300px;
+
+}
+
+
+button{
+
+padding:12px 20px;
+margin:10px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
+
+}
+
+
+.approve{
+
+background:green;
+color:white;
+
+}
+
+
+.reject{
+
+background:red;
+color:white;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<h1>🔥 ADMIN APPROVAL 🔥</h1>
+<a href="index.html" class="back-home">
+← BACK TO HOME
+</a>
+<style>
+    .back-home{
+
+display:inline-block;
+
+margin:20px;
+
+padding:12px 30px;
+
+color:white;
+
+text-decoration:none;
+
+border:2px solid orange;
+
+border-radius:25px;
+
+font-weight:bold;
+
+box-shadow:0 0 15px orange;
+
+}
+
+
+.back-home:hover{
+
+background:orange;
+
+color:black;
+
+}
+</style>
+
+<div id="playersBox"></div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
+const db = supabase.createClient(supabaseUrl, supabaseKey);
+
+async function loadProfiles() {
+
+  const { data, error } = await db
+    .from("players")
+    .select("*")
+    .eq("status", "pending");
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  let box = document.getElementById("playersBox");
+  box.innerHTML = "";
+
+  data.forEach(player => {
+    box.innerHTML += `
+      <div class="card" id="card-${player.id}">
+        <h2>${player.playerName}</h2>
+        <p>FF UID: ${player.ffid}</p>
+        <p>Level: ${player.level}</p>
+        <img src="${player.imageurl}" width="200"/>
+
+        <button class="approve" onclick="updateStatus(${player.id}, 'approved')">
+          APPROVE
+        </button>
+
+        <button class="reject" onclick="updateStatus(${player.id}, 'rejected')">
+          REJECT
+        </button>
+      </div>
+    `;
+  });
+}
+
+async function updateStatus(id, status) {
+
+  console.log("Updating:", id, status);
+
+  const { error } = await db
+    .from("players")
+    .update({ status: status })
+    .eq("id", id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  document.getElementById(`card-${id}`).remove();
+}
+
+loadProfiles();
+</script>
+
+
+
+</body>
+
+</html>

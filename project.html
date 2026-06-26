@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Registered Players</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<style>
+body{
+background:#111;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+
+.player{
+background:#222;
+padding:15px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid orange;
+}
+</style>
+</head>
+<body>
+
+<h1>Registered Players</h1>
+
+<div id="players"></div>
+
+<script>
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+const supabaseKey = "sb_publishable_geXPrZhH9hn6TgRD_ff8Eg_wnIdHXFU";
+
+const supabase = window.supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+async function loadPlayers(){
+
+const { data, error } = await supabase
+  .from("players")
+  .select("*");
+
+if (error) {
+  console.log("Error:", error);
+  return;
+}
+
+const container = document.getElementById("players");
+container.innerHTML = "";
+
+data.forEach(player => {
+  container.innerHTML += `
+    <div class="player">
+      <h3>${player.playerName}</h3>
+      <p>FF ID: ${player.ffid}</p>
+      <p>Level: ${player.level}</p>
+    </div>
+  `;
+});
+
+}
+
+loadPlayers();
+</script>
+
+</body>
+</html>

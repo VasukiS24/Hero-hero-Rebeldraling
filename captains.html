@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Captains - FREEFIREXIPL</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:
+    radial-gradient(circle at top,#ff7b0030,transparent 35%),
+    radial-gradient(circle at bottom,#ff7b0030,transparent 35%),
+    #030303;
+    color:white;
+    font-family:Arial,sans-serif;
+    padding:15px;
+}
+
+/* Back Button */
+.back-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    font-family:'Poppins';
+    font-size:15px;
+    padding:8px 14px;
+    border:2px solid #ff7b00;
+    border-radius:10px;
+    background:rgba(255,123,0,.08);
+    box-shadow:0 0 12px rgba(255,123,0,.4);
+}
+
+/* Heading */
+.captains-heading{
+    text-align:center;
+    font-family:'Orbitron', sans-serif;
+    font-size:30px;
+    font-weight:900;
+    margin:20px 0;
+    padding:15px 10px;
+
+    background:linear-gradient(90deg,#120808,#2a0f0f,#120808);
+
+    border-left:4px solid #ff7b00;
+    border-right:4px solid #ff7b00;
+    border-radius:12px;
+
+    color:#ffb347;
+
+    box-shadow:0 0 18px rgba(255,123,0,.45);
+}
+
+.captains-heading::after{
+    content:"";
+    display:block;
+    width:180px;
+    height:3px;
+    background:#ff7b00;
+    margin:8px auto 0 auto;
+    box-shadow:0 0 10px #ff7b00;
+}
+/* List */
+.captains-list{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+}
+
+/* Cards */
+.captain-item{
+    height:85px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:10px 14px;
+    position:relative;
+    overflow:hidden;
+    border-radius:18px;
+    background:linear-gradient(135deg,#111,#050505);
+    border:2px solid var(--team);
+    box-shadow:
+        0 0 15px var(--team),
+        inset 0 0 8px rgba(255,255,255,.05);
+    transition:.3s ease;
+}
+
+/* Background stripes */
+.captain-item::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    repeating-linear-gradient(
+        120deg,
+        transparent 0px,
+        transparent 35px,
+        rgba(255,255,255,.06) 36px,
+        transparent 42px
+    );
+}
+
+/* Glow streak */
+.captain-item::after{
+    content:"";
+    position:absolute;
+    width:250px;
+    height:90px;
+    left:40%;
+    top:-20px;
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        var(--team),
+        transparent
+    );
+    transform:rotate(-25deg);
+    opacity:.25;
+}
+
+/* Hover */
+.captain-item:hover{
+    transform:translateY(-3px);
+    box-shadow:
+        0 0 20px var(--team),
+        0 0 40px var(--team);
+}
+
+/* Team image */
+.captain-item img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    border:3px solid white;
+    z-index:3;
+    box-shadow:0 0 15px var(--team);
+}
+
+/* Text */
+.captain-item div{
+    z-index:3;
+}
+
+.team-name{
+    font-size:18px;
+    font-family:'Orbitron';
+    font-weight:900;
+    letter-spacing:2px;
+    color:white;
+    text-shadow:0 0 12px var(--team);
+}
+
+.captain-name{
+    font-size:12px;
+    color:#ddd;
+}
+
+/* Arrow */
+
+.captain-item span{
+    position:absolute;
+    right:15px;
+    font-size:16px;   /* smaller text */
+    color:white;
+    opacity:.9;
+    text-shadow:0 0 12px var(--team);
+}
+
+/* Team Colors */
+.srh{ --team:#ff7a00; }
+.rcb{ --team:#ff0000; }
+.csk{ --team:#ffd600; }
+.mi{ --team:#0066ff; }
+.kkr{ --team:#a020f0; }
+.rr{ --team:#ff1493; }
+.dc{ --team:#008cff; }
+.pbks{ --team:#ff0000; }
+.lsg{ --team:#00ff55; }
+.gt{ --team:#00ffff; }
+
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="back-btn">← Back to Home</a>
+
+<h2 class="captains-heading">👑 CAPTAINS FOR SEASON 11 </h2>
+
+<div class="captains-list">
+
+    <div class="captain-item srh">
+    <img src="srh.webp">
+    <div>
+        <div class="team-name">SRH</div>
+        <div class="captain-name">Captain BILLA</div>
+    </div>
+    <span>300RS❯❯</span>
+</div>
+
+<div class="captain-item csk">
+    <img src="csk.webp">
+    <div>
+        <div class="team-name">CSK</div>
+        <div class="captain-name">Captain ABHI</div>
+    </div>
+    <span>250RS❯❯</span>
+</div>
+
+<div class="captain-item rr">
+    <img src="rrrr.jpeg">
+    <div>
+        <div class="team-name">RR</div>
+        <div class="captain-name">Captain PAVAN GAMER</div>
+    </div>
+    <span>100RS❯❯</span>
+</div>
+
+<div class="captain-item mi">
+    <img src="mi.jpg">
+    <div>
+        <div class="team-name">MI</div>
+        <div class="captain-name">Captain HARSHA</div>
+    </div>
+    <span>95RS❯❯</span>
+</div>
+
+<div class="captain-item rcb">
+    <img src="rcb.webp">
+    <div>
+        <div class="team-name">RCB</div>
+        <div class="captain-name">Captain NARESH</div>
+    </div>
+    <span>90RS❯❯</span>
+</div>
+
+<div class="captain-item kkr">
+    <img src="kkr.webp">
+    <div>
+        <div class="team-name">KKR</div>
+        <div class="captain-name">Captain VENU</div>
+    </div>
+    <span>50RS❯❯</span>
+</div>
+
+<div class="captain-item pbks">
+    <img src="pbks.webp">
+    <div>
+        <div class="team-name">PBKS</div>
+        <div class="captain-name">Captain LOKI</div>
+    </div>
+    <span>50RS❯❯</span>
+</div>
+
+<div class="captain-item dc">
+    <img src="dc.webp">
+    <div>
+        <div class="team-name">DC</div>
+        <div class="captain-name">Captain RAFNA</div>
+    </div>
+    <span>20RS❯❯</span>
+</div>
+
+<div class="captain-item lsg">
+    <img src="lsg.webp">
+    <div>
+        <div class="team-name">LSG</div>
+        <div class="captain-name">Captain </div>
+    </div>
+    <span>❯❯</span>
+</div>
+
+<div class="captain-item gt">
+    <img src="gt.webp">
+    <div>
+        <div class="team-name">GT</div>
+        <div class="captain-name">Captain </div>
+    </div>
+    <span>❯❯</span>
+</div>
+</div>
+
+</body>
+</html>

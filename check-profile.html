@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Checking Profile</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+
+<body style="background:#050505;color:white;text-align:center;font-family:Arial;padding-top:100px;">
+
+
+<h1 id="msg">
+Checking approval... 🔥
+</h1>
+
+<a href="index.html" class="back-home">
+← BACK TO HOME
+</a>
+<style>
+    .back-home{
+
+display:inline-block;
+
+margin-top:40px;
+
+padding:12px 30px;
+
+color:white;
+
+text-decoration:none;
+
+border:2px solid orange;
+
+border-radius:25px;
+
+font-weight:bold;
+
+box-shadow:0 0 15px orange;
+
+}
+
+
+.back-home:hover{
+
+background:orange;
+
+color:black;
+
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+
+const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
+
+
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w"
+
+const db = window.supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+
+
+// TEMP: checking using FF UID
+
+let ffid = prompt("Enter your Free Fire UID");
+
+
+
+async function checkProfile(){
+
+
+const {data,error}= await db
+.from("profiles")
+.select("*")
+.eq("ffid",ffid)
+.single();
+
+
+
+if(error || !data){
+
+document.getElementById("msg").innerHTML = `
+
+Profile not created yet ❌
+<br><br>
+
+Create your player profile first 🔥
+
+<br><br>
+
+<a href="profile.html">
+
+<button style="
+padding:15px 30px;
+background:orange;
+color:white;
+border:none;
+border-radius:20px;
+font-weight:bold;
+cursor:pointer;
+">
+
+CREATE PROFILE
+
+</button>
+
+</a>
+
+`;
+
+return;
+
+}
+
+
+
+if(data.status=="approved"){
+
+
+document.getElementById("msg").innerHTML =
+"Approved 🔥 Opening Registration...";
+
+
+setTimeout(()=>{
+
+window.location.href="register.html";
+
+},1500);
+
+
+
+}
+
+
+
+else if(data.status=="pending"){
+
+
+document.getElementById("msg").innerHTML =
+"Waiting for Admin Approval ⏳🔥";
+
+
+}
+
+
+
+else{
+
+
+document.getElementById("msg").innerHTML =
+"Profile Rejected ❌";
+
+
+}
+
+
+
+}
+
+
+
+checkProfile();
+
+
+</script>
+
+
+</body>
+
+</html>
