@@ -316,15 +316,15 @@ const imageurl = data.publicUrl;
       playerName,
       ffid,
       level,
-      imageurl
+      imageurl,
+      status:"pending"
     }
-  ]);
-
+]);
   if (error) {
     alert(error.message);
   } else {
-    alert("Registered successfully!");
-    window.location.href = "players.html";
+    alert("Registration submitted. Wait for admin approval 🔥");
+    window.location.href = "index.html";
   }
 });
 </script>

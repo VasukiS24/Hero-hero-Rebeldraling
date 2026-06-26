@@ -104,136 +104,72 @@ color:black;
 }
 </style>
 
-<div id="profiles"></div>
+<div id="playersBox"></div>
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-
 <script>
-
-
 const supabaseUrl = "https://yzoevaombbjqltufkjvz.supabase.co";
-
-
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6b2V2YW9tYmJqcWx0dWZranZ6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzNjU1MDksImV4cCI6MjA5Nzk0MTUwOX0.mg49WO6SwuCRV5omW49pExbbHeun7w0L01DgC9Blk3w";
+const db = supabase.createClient(supabaseUrl, supabaseKey);
 
+async function loadProfiles() {
 
-const db = window.supabase.createClient(
-supabaseUrl,
-supabaseKey
-);
+  const { data, error } = await db
+    .from("players")
+    .select("*")
+    .eq("status", "pending");
 
+  if (error) {
+    console.log(error);
+    return;
+  }
 
+  let box = document.getElementById("playersBox");
+  box.innerHTML = "";
 
-async function loadProfiles(){
+  data.forEach(player => {
+    box.innerHTML += `
+      <div class="card" id="card-${player.id}">
+        <h2>${player.playerName}</h2>
+        <p>FF UID: ${player.ffid}</p>
+        <p>Level: ${player.level}</p>
+        <img src="${player.imageurl}" width="200"/>
 
+        <button class="approve" onclick="updateStatus(${player.id}, 'approved')">
+          APPROVE
+        </button>
 
-const {data,error}=await db
-.from("profiles")
-.select("*")
-.eq("status","pending");
-
-
-
-if(error){
-
-console.log(error);
-return;
-
+        <button class="reject" onclick="updateStatus(${player.id}, 'rejected')">
+          REJECT
+        </button>
+      </div>
+    `;
+  });
 }
 
+async function updateStatus(id, status) {
 
+  console.log("Updating:", id, status);
 
-let box=document.getElementById("profiles");
+  const { error } = await db
+    .from("players")
+    .update({ status: status })
+    .eq("id", id);
 
+  if (error) {
+    alert(error.message);
+    return;
+  }
 
-box.innerHTML="";
-
-
-
-data.forEach(player=>{
-
-
-box.innerHTML += `
-
-
-<div class="card">
-
-
-<h2>${player.name}</h2>
-
-<p>FF UID : ${player.ffid}</p>
-
-<p>Phone : ${player.phone}</p>
-
-
-<button class="approve"
-onclick="updateStatus(${player.id},'approved')">
-
-APPROVE
-
-</button>
-
-
-<button class="reject"
-onclick="updateStatus(${player.id},'rejected')">
-
-REJECT
-
-</button>
-
-
-</div>
-
-
-
-`;
-
-
-
-});
-
-
+  document.getElementById(`card-${id}`).remove();
 }
-
-
-
-async function updateStatus(id,status){
-
-
-const {error}=await db
-.from("profiles")
-.update({status:status})
-.eq("id",id);
-
-
-
-if(error){
-
-alert(error.message);
-
-}
-
-else{
-
-alert("Updated 🔥");
 
 loadProfiles();
-
-}
-
-
-}
-
-
-
-loadProfiles();
-
-
-
 </script>
+
 
 
 </body>

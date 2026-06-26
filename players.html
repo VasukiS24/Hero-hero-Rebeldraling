@@ -199,7 +199,8 @@ async function loadPlayers() {
 
   const { data, error } = await db
     .from("players")
-    .select("*");
+    .select("*")
+    .eq("status","approved");
 
   if (error) {
     console.log(error);
