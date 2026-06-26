@@ -48,18 +48,32 @@ body{
 /* Heading */
 .captains-heading{
     text-align:center;
-    font-family:'Audiowide', sans-serif;
-    font-size:22px;
-    font-weight:400;
+    font-family:'Orbitron', sans-serif;
+    font-size:30px;
+    font-weight:900;
     margin:20px 0;
-    color:white;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    text-shadow:
-        0 0 6px #ff7b00,
-        0 0 12px #ff7b00;
+    padding:15px 10px;
+
+    background:linear-gradient(90deg,#120808,#2a0f0f,#120808);
+
+    border-left:4px solid #ff7b00;
+    border-right:4px solid #ff7b00;
+    border-radius:12px;
+
+    color:#ffb347;
+
+    box-shadow:0 0 18px rgba(255,123,0,.45);
 }
 
+.captains-heading::after{
+    content:"";
+    display:block;
+    width:180px;
+    height:3px;
+    background:#ff7b00;
+    margin:8px auto 0 auto;
+    box-shadow:0 0 10px #ff7b00;
+}
 /* List */
 .captains-list{
     display:flex;
@@ -199,7 +213,7 @@ body{
     <span>300RS❯❯</span>
 </div>
 
-<div class="captain-item rcb">
+<div class="captain-item csk">
     <img src="csk.webp">
     <div>
         <div class="team-name">CSK</div>
@@ -208,7 +222,7 @@ body{
     <span>250RS❯❯</span>
 </div>
 
-<div class="captain-item csk">
+<div class="captain-item rr">
     <img src="rrrr.jpeg">
     <div>
         <div class="team-name">RR</div>
@@ -226,7 +240,7 @@ body{
     <span>95RS❯❯</span>
 </div>
 
-<div class="captain-item kkr">
+<div class="captain-item rcb">
     <img src="rcb.webp">
     <div>
         <div class="team-name">RCB</div>
@@ -235,7 +249,7 @@ body{
     <span>90RS❯❯</span>
 </div>
 
-<div class="captain-item rr">
+<div class="captain-item kkr">
     <img src="kkr.webp">
     <div>
         <div class="team-name">KKR</div>
@@ -244,7 +258,7 @@ body{
     <span>50RS❯❯</span>
 </div>
 
-<div class="captain-item dc">
+<div class="captain-item pbks">
     <img src="pbks.webp">
     <div>
         <div class="team-name">PBKS</div>
@@ -253,7 +267,7 @@ body{
     <span>50RS❯❯</span>
 </div>
 
-<div class="captain-item pbks">
+<div class="captain-item dc">
     <img src="dc.webp">
     <div>
         <div class="team-name">DC</div>

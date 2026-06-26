@@ -42,66 +42,158 @@ function toggleMenu(){
 
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+
 const spotlightData = [
 {
 image:"kiro.jpeg",
-tag:"register now",
+tag:"LIVE NOW",
 title:"FREEFIREXIPL SEASON 11",
-date:"Registration Opens Soon",
+date:"Registrations Are Live Now",
 text:"Bigger battles, stronger teams, exciting matches.",
-link:"#"
+link:"register.html",
+tags:["🏆 Tournament","🔥 Season 11 ","🎮 Free Fire"]
 },
 {
 image:"banner2.jpg",
 tag:"UPDATE",
-title:"TOURNAMENT SCHEDULE",
-date:"Coming This Week",
-text:"Official match schedule releasing shortly.",
-link:"#"
+title:"SEASON - 11 AUCTIONS",
+date:"27TH JUNE",
+text:"1000 rupees prizeppool",
+link:"#",
+tags:["📢 Update","🔥 Season 11 ","🎯 auctions"]
 },
 {
-image:"banner3.jpg",
-tag:"SPECIAL EVENT",
-date:"Limited Event",
-title:"EXCLUSIVE REWARDS",
-text:"Play and win exclusive tournament rewards.",
-link:"#"
-}
+image:"srh.jpeg",
+tag:"Sun Risers Hyderabad",
+title:"TEAM SRH",
+date:"CAPTAIN BILLA",
+text:"RISE WITH FIRE",
+link:"#",
+tags:["👑 IPL CAPTAIN ","🔥 HIGHEST BIDDER ","SRH","🎯 JOIN US "],
+special:true
+},
+{
+image:"RCB.jpeg",
+tag:"Royal Challengers Bangalore",
+title:"TEAM RCB",
+date:"CAPTAIN NARESH",
+text:"PLAY BOLD",
+link:"#",
+tags:["👑 IPL CAPTAIN","🔥RCB", "🎯 JOIN US"],
+special:true
+},
+
+{
+image:"csk.jpeg",
+tag:"Chennai Super Kings",
+title:"TEAM CSK",
+date:"CAPTAIN ABHI",
+text:"WHISTLE PODU",
+link:"#",
+tags:["👑 IPL CAPTAIN","🔥CSK", "🎯 JOIN US"],
+special:true
+},
+{
+image:"kkr.jpeg",
+tag:"Kolkata Knight Riders",
+title:"TEAM KKR",
+date:"CAPTAIN VENU",
+text:"CHASE THE VICTORY, OWN THE NIGHT",
+link:"#",
+tags:["👑 IPL CAPTAIN","🟣 KKR DOMINATION","🎯 JOIN US"],
+special:true
+},
+{
+image:"dc.jpeg",
+tag:"Delhi Capitals",
+title:"TEAM DC",
+date:"CAPTAIN RAFNA",
+text:"FIGHT HARD, WIN BIG",
+link:"#",
+tags:["👑 IPL CAPTAIN","🔷 DC ATTACK","🎯 JOIN US"],
+special:true
+},
+{
+image:"RR.jpeg",
+tag:"Rajasthan Royals",
+title:"TEAM RR",
+date:"CAPTAIN PAVAN",
+text:"ROYAL BLOOD, FEARLESS GAME",
+link:"#",
+tags:["👑 IPL CAPTAIN","💗 RR SQUAD","🎯 JOIN US"],
+special:true
+},
+{
+image:"MI.jpeg",
+tag:"Mumbai Indians",
+title:"TEAM MI",
+date:"CAPTAIN HARSHA",
+text:"ONE FAMILY, ONE GOAL",
+link:"#",
+tags:["👑 IPL CAPTAIN","🔵 MI POWER","🎯 JOIN US"],
+special:true
+},
+{
+image:"pbks.jpeg",
+tag:"Punjab Kings",
+title:"TEAM PBKS",
+date:"CAPTAIN LOKI",
+text:"POWER HITTERS READY",
+link:"#",
+tags:["👑 IPL CAPTAIN","❤️ PBKS FIRE","🎯 JOIN US"],
+special:true
+},
+
+
 ];
 
 let currentSlide = 0;
+
+const imageBox = document.querySelector(".spotlight-image");
+
+const spotlightCard = document.querySelector(".spotlight-card");
 
 function showSlide(){
     const item = spotlightData[currentSlide];
 
     document.getElementById("spotlightImage").src = item.image;
+
+    spotlightCard.classList.remove("big-card");
+
+if(item.special){
+    spotlightCard.classList.add("big-card");
+}
     document.getElementById("spotlightTag").textContent = item.tag;
     document.getElementById("spotlightTitle").textContent = item.title;
     document.getElementById("spotlightDate").textContent = item.date;
     document.getElementById("spotlightText").textContent = item.text;
     document.getElementById("spotlightBanner").href = item.link;
+
+    // TAGS
+    const tagContainer = document.getElementById("spotlightTags");
+    tagContainer.innerHTML = item.tags
+        .map(tag => `<span>${tag}</span>`)
+        .join("");
+
+ 
 }
 
 function nextSlide(){
-    currentSlide++;
-    if(currentSlide >= spotlightData.length){
-        currentSlide = 0;
-    }
+    currentSlide = (currentSlide + 1) % spotlightData.length;
     showSlide();
 }
 
 function prevSlide(){
-    currentSlide--;
-    if(currentSlide < 0){
-        currentSlide = spotlightData.length - 1;
-    }
+    currentSlide = (currentSlide - 1 + spotlightData.length) % spotlightData.length;
     showSlide();
 }
 
+// Auto slide
 setInterval(nextSlide, 4000);
 
+// Swipe
 let startX = 0;
-
 const card = document.querySelector('.spotlight-card');
 
 card.addEventListener('touchstart', (e) => {
@@ -112,10 +204,16 @@ card.addEventListener('touchend', (e) => {
     let endX = e.changedTouches[0].clientX;
 
     if(startX - endX > 50){
-        nextSlide(); // swipe left
+        nextSlide();
     }
 
     if(endX - startX > 50){
-        prevSlide(); // swipe right
+        prevSlide();
     }
 });
+
+// Show first slide
+showSlide();
+
+});
+
