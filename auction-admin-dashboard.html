@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>FREEFIREXIPL | Admin Control Room</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--bg:#070707;
+--card:#141414;
+--orange:#ff9800;
+--green:#00ff80;
+--text:#fff;
+--grey:#999;
+}
+
+body{
+background:var(--bg);
+font-family:Poppins,sans-serif;
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+body::before{
+content:"";
+position:fixed;
+top:-250px;
+left:-250px;
+width:650px;
+height:650px;
+background:#ff9800;
+filter:blur(170px);
+opacity:.12;
+z-index:-1;
+}
+
+.container{
+max-width:520px;
+margin:auto;
+padding:18px;
+}
+
+/* Header */
+
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.back{
+width:48px;
+height:48px;
+border:none;
+border-radius:15px;
+background:#111;
+color:var(--orange);
+font-size:20px;
+cursor:pointer;
+}
+
+.title h1{
+font-family:Orbitron;
+font-size:22px;
+color:var(--orange);
+}
+
+.title p{
+font-size:12px;
+color:#777;
+}
+
+/* Status */
+
+.status{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.live{
+display:flex;
+align-items:center;
+gap:8px;
+color:var(--green);
+font-weight:600;
+}
+
+.dot{
+width:10px;
+height:10px;
+background:var(--green);
+border-radius:50%;
+animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+50%{transform:scale(1.5);}
+}
+
+.timer{
+font-family:Orbitron;
+font-size:24px;
+color:var(--orange);
+}
+
+/* Player Card */
+
+.player{
+background:#121212;
+border:1px solid #222;
+border-radius:22px;
+padding:25px;
+text-align:center;
+}
+
+.avatar{
+width:120px;
+height:120px;
+margin:auto;
+border-radius:50%;
+background:#1d1d1d;
+border:4px solid var(--orange);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+margin-bottom:18px;
+}
+
+.player h2{
+font-family:Orbitron;
+font-size:26px;
+margin-bottom:15px;
+}
+
+.info{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-top:15px;
+}
+
+.box{
+background:#1a1a1a;
+padding:14px;
+border-radius:14px;
+}
+
+.box h4{
+color:var(--orange);
+font-size:12px;
+margin-bottom:5px;
+}
+
+.box p{
+font-size:14px;
+}
+
+/* Bid Card */
+
+.bid{
+margin-top:20px;
+background:linear-gradient(135deg,#ff9800,#ff6d00);
+padding:22px;
+border-radius:22px;
+text-align:center;
+}
+
+.bid small{
+font-size:13px;
+}
+
+.bid h1{
+font-family:Orbitron;
+font-size:48px;
+margin:10px 0;
+}
+
+.bid h3{
+font-size:18px;
+}
+
+.controls{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:14px;
+}
+
+.control-btn{
+
+padding:16px;
+
+border:none;
+
+border-radius:16px;
+
+font-family:Orbitron;
+
+font-size:13px;
+
+cursor:pointer;
+
+transition:.25s;
+
+color:white;
+
+background:#1a1a1a;
+
+border:1px solid #2a2a2a;
+
+}
+
+.control-btn:hover{
+
+transform:translateY(-3px);
+
+border-color:#ff9800;
+
+box-shadow:0 0 20px rgba(255,152,0,.25);
+
+}
+
+.primary{
+
+background:linear-gradient(135deg,#ff9800,#ff6d00);
+
+border:none;
+
+}
+
+.danger{
+
+background:#ff3b30;
+
+border:none;
+
+}
+
+.green{
+
+background:#00c853;
+
+border:none;
+
+}
+
+/* TEAM GRID */
+
+.teams{
+
+margin-top:25px;
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:12px;
+
+}
+
+.team{
+
+background:#121212;
+
+padding:14px;
+
+border-radius:16px;
+
+border:1px solid #222;
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+transition:.3s;
+
+}
+
+.team h3{
+
+font-family:Orbitron;
+
+font-size:14px;
+
+}
+
+.team span{
+
+color:#00ff80;
+
+font-weight:600;
+
+}
+
+/* END STYLE CONTINUE */
+
+
+
+
+/* existing CSS above */
+
+.team span{
+color:#00ff80;
+font-weight:600;
+}
+
+/* ADD THIS HERE 👇 */
+
+.activity{
+margin-top:25px;
+}
+
+.activity h2{
+font-family:Orbitron;
+color:#ff9800;
+font-size:18px;
+margin-bottom:10px;
+}
+
+.log{
+background:#1a1a1a;
+padding:12px;
+border-radius:12px;
+margin-top:10px;
+color:#ccc;
+font-size:13px;
+border-left:3px solid #ff9800;
+}
+
+/* END CSS */
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+
+<button class="back" onclick="history.back()">←</button>
+
+<div class="title">
+<h1>FREEFIREXIPL</h1>
+<p>ADMIN CONTROL ROOM</p>
+</div>
+
+</div>
+
+<!-- STATUS BAR -->
+<div class="status">
+
+<div class="live">
+<div class="dot"></div>
+LIVE
+</div>
+
+<div class="timer" id="timer">00:30</div>
+
+</div>
+
+<!-- PLAYER CARD -->
+<div class="player">
+
+<div class="avatar">👤</div>
+
+<h2 id="playerName">PLAYER NAME</h2>
+
+<div class="info">
+
+<div class="box">
+<h4>UID</h4>
+<p id="uid">000000</p>
+</div>
+
+<div class="box">
+<h4>ROLE</h4>
+<p id="role">-</p>
+</div>
+
+<div class="box">
+<h4>LEVEL</h4>
+<p id="level">0</p>
+</div>
+
+<div class="box">
+<h4>STATUS</h4>
+<p>LIVE</p>
+</div>
+
+</div>
+
+<!-- BID -->
+<div class="bid">
+
+<small>CURRENT BID</small>
+
+<h1 id="bidAmount">₹50</h1>
+
+<h3 id="highestTeam">NO TEAM</h3>
+
+</div>
+
+</div>
+
+<!-- CONTROLS START -->
+<div class="controls">
+
+    <button class="control-btn primary">➕ ADD PLAYER</button>
+
+<button class="control-btn green">▶ START</button>
+
+<button class="control-btn">⏸ PAUSE</button>
+
+<button class="control-btn">⏭ NEXT PLAYER</button>
+
+<button class="control-btn">➕ +50</button>
+
+<button class="control-btn">➕ +100</button>
+
+<button class="control-btn">➕ +200</button>
+
+<button class="control-btn">🏆 CHANGE TEAM</button>
+
+<button class="control-btn green">✅ SOLD</button>
+
+<button class="control-btn danger">❌ UNSOLD</button>
+
+<button class="control-btn">🔄 RESET</button>
+
+</div>
+
+<!-- TEAM GRID -->
+
+<div class="teams">
+
+<div class="team">
+<h3>RCB</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>CSK</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>MI</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>KKR</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>RR</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>DC</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>PBKS</h3>
+<span>₹1000</span>
+</div>
+
+<div class="team">
+<h3>SRH</h3>
+<span>₹1000</span>
+</div>
+
+</div>
+<!-- ACTIVITY LOG -->
+
+<div class="activity">
+
+<h2>LIVE ACTIVITY</h2>
+
+<div id="logBox">
+
+<div class="log">System ready...</div>
+
+</div>
+
+</div>
+
+<script>
+
+let auction = {
+  bid: 50,
+  timer: 30,
+  highestTeam: "WAITING",
+  playerName: "PLAYER NAME"
+};
+
+const bidEl = document.getElementById("bidAmount");
+const timerEl = document.getElementById("timer");
+const highestEl = document.getElementById("highestTeam");
+const logBox = document.getElementById("logBox");
+
+/* SAVE */
+function saveAuction(){
+  localStorage.setItem("auction", JSON.stringify(auction));
+}
+
+/* LOG */
+function addLog(text){
+const div = document.createElement("div");
+div.className = "log";
+div.innerText = text;
+logBox.prepend(div);
+}
+
+/* TIMER */
+setInterval(() => {
+if(auction.timer > 0){
+auction.timer--;
+timerEl.innerText = "00:" + (auction.timer < 10 ? "0"+auction.timer : auction.timer);
+saveAuction();
+}
+},1000);
+
+/* BUTTONS */
+document.querySelectorAll(".control-btn").forEach(btn => {
+
+btn.addEventListener("click", () => {
+
+const t = btn.innerText;
+
+/* BID SYSTEM */
+if(t.includes("+50")) auction.bid += 50;
+if(t.includes("+100")) auction.bid += 100;
+if(t.includes("+200")) auction.bid += 200;
+
+bidEl.innerText = "₹" + auction.bid;
+
+
+/* SOLD */
+if(t.includes("SOLD")){
+
+}
+
+/* RESET */
+if(t.includes("RESET")){
+  auction.bid = 50;
+  auction.timer = 30;
+  auction.highestTeam = "WAITING";
+}
+
+addLog(t + " → ₹" + auction.bid);
+
+});
+
+});
+function render(){
+  bidEl.innerText = "₹" + auction.bid;
+  render();
+  highestEl.innerText = auction.highestTeam;
+
+  timerEl.innerText = "00:" + (auction.timer < 10 ? "0"+auction.timer : auction.timer);
+}
+
+/* LOAD SAVED STATE */
+let saved = localStorage.getItem("auction");
+if(saved){
+  auction = JSON.parse(saved);
+  render();
+}
+
+/* SYNC LOOP */
+setInterval(() => {
+  let data = localStorage.getItem("auction");
+  if(data){
+    auction = JSON.parse(data);
+    render();
+  }
+}, 500);
+</script>
+</body>
+</html>

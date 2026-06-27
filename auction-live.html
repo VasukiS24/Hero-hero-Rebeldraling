@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>FREEFIREXIPL | LIVE AUCTION</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+background:#0b0b0b;
+color:white;
+font-family:Poppins;
+text-align:center;
+}
+
+.header{
+padding:20px;
+font-family:Orbitron;
+color:#ff9800;
+font-size:22px;
+}
+
+.card{
+margin:20px;
+padding:25px;
+background:#111;
+border-radius:20px;
+border:1px solid #222;
+}
+
+.big{
+font-size:50px;
+font-family:Orbitron;
+color:#ff9800;
+margin:10px 0;
+}
+
+.team{
+font-size:22px;
+color:#00ff80;
+}
+
+.timer{
+font-size:18px;
+color:#999;
+margin-top:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">LIVE AUCTION</div>
+
+<div class="card">
+
+<h2 id="player">PLAYER NAME</h2>
+
+<div class="big" id="bid">₹50</div>
+
+<div class="team" id="team">WAITING</div>
+
+<div class="timer" id="time">00:30</div>
+
+</div>
+
+<script>
+
+function load(){
+let data = localStorage.getItem("auction");
+
+if(!data) return;
+
+data = JSON.parse(data);
+
+document.getElementById("player").innerText = data.playerName;
+document.getElementById("bid").innerText = "₹" + data.bid;
+document.getElementById("team").innerText = data.highestTeam;
+document.getElementById("time").innerText =
+"00:" + (data.timer < 10 ? "0"+data.timer : data.timer);
+}
+
+setInterval(load, 500);
+
+</script>
+
+</body>
+</html>

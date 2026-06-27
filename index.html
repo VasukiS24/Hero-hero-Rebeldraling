@@ -78,6 +78,9 @@
 
                 <div id="dropdown-menu">
                     <a href="captains.html">👑 Captains</a>
+                    <!-- NEW AUCTION BUTTON -->
+    <a href="auction.html" class="auction-btn">🔨 Auction</a>
+
                     <a href="tournaments.html">🏆 Tournaments</a>
                     <a href="register.html">🔥 Player Registration</a>
                     <a href="players.html">🎮 Registered Players</a>
@@ -121,7 +124,44 @@
 
         <!-- HALL OF FAME -->
 
-        
+        <section class="championship-hero">
+
+    <div class="scan"></div>
+
+    <div class="hero-badge">
+        ● LIVE EVENT
+    </div>
+
+    <h2>FREEFIREXIPL</h2>
+
+    <h1>SEASON 11</h1>
+
+    <div class="prize-box">
+
+        <span>PRIZE POOL</span>
+
+        <h3 id="money">₹1,000</h3>
+
+    </div>
+
+    <div class="teams">
+
+        <span>RCB</span>
+        <span>SRH</span>
+        <span>CSK</span>
+        <span>MI</span>
+        <span>DC</span>
+        <span>RR</span>
+        <span>PBKS</span>
+        <span>KKR</span>
+
+    </div>
+
+    <p>
+        ⚔️ 8 Teams • 1 Champion • Unlimited Glory ⚔️
+    </p>
+
+</section>
 <!-- SPOTLIGHT ANNOUNCEMENTS -->
 
 <!-- SPOTLIGHT ANNOUNCEMENTS -->
@@ -297,6 +337,35 @@
 
 
 <script src="script.js?v=3"></script>
+<div style="position:fixed;bottom:20px;right:20px;background:#111;padding:15px;border-radius:10px;color:white;z-index:9999;">
+    <button id="playBtn">▶ Play</button>
+
+    <audio id="player">
+        <source src="fearu.mp3" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+</div>
+
+<script>
+const player = document.getElementById("player");
+const playBtn = document.getElementById("playBtn");
+
+playBtn.addEventListener("click", function () {
+    if (player.paused) {
+        player.play()
+            .then(() => {
+                playBtn.innerHTML = "⏸ Pause";
+            })
+            .catch(err => {
+                alert("Error: " + err.message);
+                console.error(err);
+            });
+    } else {
+        player.pause();
+        playBtn.innerHTML = "▶ Play";
+    }
+});
+</script>
 </body>
 
 </html>
